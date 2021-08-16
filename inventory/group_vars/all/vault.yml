@@ -1,0 +1,4 @@
+#ansible-vault edit ~/inventory/group_vars/all/vault.yml
+
+vault_elastic_password: password
+vault_kibana_password: password

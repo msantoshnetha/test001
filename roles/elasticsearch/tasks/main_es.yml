@@ -1,0 +1,30 @@
+- name: Create elasticsearch volume
+  docker_volume:
+    name: es1data
+    driver: local
+
+- name: Start elasticsearch container
+  docker_container:
+    name: "{{ elastics_hostname }}"
+    image: "{{ elastics_image }}"
+    env:
+      discovery.type: "single-node"
+      xpack.security.enabled: "true"
+      xpack.monitoring.collection.enabled: "true"
+    volumes:
+    - "es1data:/usr/share/elasticsearch/data"
+    ulimits:
+    - nofile:65535:65535
+    networks:
+    - name: "{{ network_name }}"
+    state: started
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"
+
+- debug:
+    msg: >
+      Have to be configured manually. Enable and set the password for the default users with:
+      `docker exec -it {{ elastics_hostname }} /bin/bash -c "elasticsearch-setup-passwords auto"`
+      Then edit the `vaul.yml` file and copy the password values to the expected variable.

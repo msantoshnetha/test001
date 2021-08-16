@@ -1,0 +1,24 @@
+server_name: monitoring.example.com
+network_name: esnet
+
+nginx_image: nginx:1.15-alpine
+nginx_hostname: ng01
+nginx_conf_dir: /usr/share/nginx
+
+elasticsearch_image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+elasticsearch_hostname: es01
+elasticsearch_conf_dir: /usr/share/elasticsearch
+
+kibana_image: docker.elastic.co/kibana/kibana:7.3.2
+kibana_hostname: ki01
+
+logstash_image: docker.elastic.co/logstash/logstash:7.4.0
+logstash_hostname: lo01
+logstash_conf_dir: /usr/share/logstash
+
+project_image: project
+project_hostname: pj01
+project_conf_dir: /usr/share/project
+
+elastic_password: "{{ vault_elastic_password }}"
+kibana_password: "{{ vault_kibana_password }}"
